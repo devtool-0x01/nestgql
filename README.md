@@ -54,6 +54,7 @@ Both Typeorm and Graphql have been configured and set up in app.module.ts file. 
 
 - add more validation where needed
 - add authentication for mutations
+- add missing POST, PUT and DELETE endpoints to controllers.
 - optimize sql usage, add dataloader etc.
 - may be reorgnize service classes to remove depency on Typeorm repositories
 
