@@ -2,6 +2,8 @@ import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateRecipeInput {
+  // TODO: Add validaion rules
+
   @Field(() => String)
   title: string;
 

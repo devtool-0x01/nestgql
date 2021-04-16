@@ -19,6 +19,7 @@ export class SampleService {
   getHello(): string {
     return 'hello World';
   }
+
   async getAllEntries(): Promise<SampleEntity[]> {
     return this.sampleRepo.find({});
   }

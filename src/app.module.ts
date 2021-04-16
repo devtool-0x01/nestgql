@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 // import { TestEntity } from './TestEntity';
 import { RecipeModule } from './recipe/recipe.module';
 import { SampleModule } from './sample/sample.module';
+import { IssuesModule } from './issues/issues.module';
 
 @Module({
   imports: [
@@ -22,11 +23,12 @@ import { SampleModule } from './sample/sample.module';
     }),
     // TypeOrmModule.forFeature([TestEntity]),
     GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'src/schema.graphql'),
       playground: true,
     }),
     RecipeModule,
     SampleModule,
+    IssuesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

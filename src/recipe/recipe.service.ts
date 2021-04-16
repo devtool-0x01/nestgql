@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateRecipeInput } from './dto/create-recipe.input';
-import { RecipeDto } from './dto/list-recipe.dto';
+import { RecipeDto } from './dto/recipe.dto';
 import { UpdateRecipeInput } from './dto/update-recipe.input';
 import { Recipe } from './entities/recipe.entity';
 
-function mapToRecipeDto(recipe: Recipe) {
+function mapToRecipeDto(recipe: Recipe): RecipeDto | null {
   if (!recipe) {
     return null;
   }
@@ -19,6 +19,7 @@ function mapToRecipeDto(recipe: Recipe) {
 
 @Injectable()
 export class RecipeService {
+  // TODO: remove direct dependency on typeorm repository
   constructor(
     @InjectRepository(Recipe) private recipeRepo: Repository<Recipe>,
   ) {}
@@ -61,6 +62,7 @@ export class RecipeService {
     if (!recipe) {
       return null;
     }
+    // TODO: clean and simplify this section
     const {
       description,
       title,
@@ -75,7 +77,7 @@ export class RecipeService {
       instructions: instructions || recipe.instructions,
       ingredients: ingredients || recipe.ingredients,
     });
-    // console.log(recipe);
+
     // TODO: Fix output to include updated recipe
     // recipe.instructions = instructions;
     // recipe.ingredients = ingredients;
@@ -83,7 +85,8 @@ export class RecipeService {
   }
 
   async remove(id: number): Promise<boolean> {
-    await this.recipeRepo.delete(id);
-    return true;
+    // await this.recipeRepo.delete(id);
+    const deleted = await this.recipeRepo.delete(id);
+    return deleted.affected && deleted.affected > 0;
   }
 }

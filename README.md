@@ -4,17 +4,17 @@
 
 ## Description
 
-Unified API providing both REST and Graphql endpoints.
+Unified API providing both REST and Graphql endpoints. This project can be used as a starter for another project.
 
 <!-- <img src="https://nestjs.com/img/logo_text.svg" height="20" alt="Nest Logo" /> -->
 
-- NestJs
-- GraphQL
+- NestJs - Core framework
+- GraphQL - Using @nestjs/graphql
 - Typeorm
-- Sqlite
+- Sqlite - can be switched to Postgres, Mysql etc
 - Typescript
 
-This is a work in progress.
+NOTE: This project is currently a work in progress.
 
 ## Installation
 
@@ -30,19 +30,36 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
+#OR
+$ npm run dev
 
 # production mode
 $ npm run start:prod
 ```
 
-Running the app for the first time will create appdb.db file in the root directry of the project with 2 entities, Recipe and Sample.
+Running the app for the first time will create appdb.db file in the root directry of the project with following typeorm entities:
 
-- SampleEntity is just a test entity
+- Recipe (a cooking recipe, can be any recipe in fact, e.g. a how to, etc.)
+- Project (a project entity, for example, a project in development.)
+- Bug (Bugs related to a project in Project entity.)
+- Sample (this is just a test entity. Can be renamed to note for the Bug entity.)
+
+- Sample entity only exists to make test CRUD operations to check everything is working.
+
 - Recipe entity is basic recipe model with a few properties [`title`, `description`, `ingredients`, `instructions`] etc.
+
+Both Typeorm and Graphql have been configured and set up in app.module.ts file. Further config is done in each module as needed.
+
+## TODOs
+
+- add more validation where needed
+- add authentication for mutations
+- optimize sql usage, add dataloader etc.
+- may be reorgnize service classes to remove depency on Typeorm repositories
 
 ## Test
 
-Not fully Implemented yet.
+To be done.
 
 ```bash
 # unit tests

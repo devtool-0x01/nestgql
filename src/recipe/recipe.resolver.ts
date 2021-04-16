@@ -11,7 +11,7 @@ import { RecipeService } from './recipe.service';
 // import { Recipe } from './entities/recipe.entity';
 import { CreateRecipeInput } from './dto/create-recipe.input';
 import { UpdateRecipeInput } from './dto/update-recipe.input';
-import { RecipeDto } from './dto/list-recipe.dto';
+import { RecipeDto } from './dto/recipe.dto';
 
 @Resolver(() => RecipeDto)
 export class RecipeResolver {
@@ -56,7 +56,7 @@ export class RecipeResolver {
   }
 
   @Mutation(() => Boolean)
-  removeRecipe(@Args('id', { type: () => Int }) id: number) {
+  deleteRecipe(@Args('id', { type: () => Int }) id: number) {
     return this.recipeService.remove(id);
   }
 }

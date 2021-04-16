@@ -26,21 +26,49 @@ type SampleEntity {
   updatedAt: DateTime!
 }
 
+type Bug {
+  id: Int!
+  title: String!
+  description: String!
+  resolved: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Project {
+  id: Int!
+  name: String!
+  description: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  bugs: [Bug!]!
+}
+
 type Query {
   recipes(take: Int = 10): [Recipe!]!
   recipe(id: Int!): Recipe
   hello: String!
   getSampleEntries: [SampleEntity!]!
   getSampleEntry(id: Int!): SampleEntity
+  projects: [Project!]!
+  project(id: Int!): Project!
+  getBugs(projectId: Int!): [Bug!]!
 }
 
 type Mutation {
   createRecipe(createRecipeInput: CreateRecipeInput!): Recipe!
   updateRecipe(updateRecipeInput: UpdateRecipeInput!): Recipe
-  removeRecipe(id: Int!): Boolean!
+  deleteRecipe(id: Int!): Boolean!
   createSampleEntry(val: String!): SampleEntity!
   updateSampleEntry(id: Int!, val: String!): Boolean!
   deleteSampleEntry(id: Int!): Boolean!
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  updateProject(updateProjectInput: UpdateProjectInput!): Boolean!
+  deleteProject(id: Int!): Boolean!
+  registerBug(createBugInput: CreateBugInput!): Bug!
+  updateBug(updateBugInput: UpdateBugInput!): Boolean!
+  deleteBug(id: Int!): Boolean!
+  markBugAsResolved(bugId: Int!): Boolean!
 }
 
 input CreateRecipeInput {
@@ -55,5 +83,28 @@ input UpdateRecipeInput {
   description: String
   instructions: [String!]
   ingredients: [String!]
+  id: Int!
+}
+
+input CreateProjectInput {
+  name: String!
+  description: String!
+}
+
+input UpdateProjectInput {
+  name: String
+  description: String
+  id: Int!
+}
+
+input CreateBugInput {
+  projectId: Int!
+  title: String!
+  description: String!
+}
+
+input UpdateBugInput {
+  title: String
+  description: String
   id: Int!
 }
