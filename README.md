@@ -39,16 +39,12 @@ $ npm run start:prod
 
 Running the app for the first time will create appdb.db file in the root directry of the project with following typeorm entities:
 
-- Recipe (a cooking recipe, can be any recipe in fact, e.g. a how to, etc.)
+- Recipe (a cooking recipe, can be any recipe in fact, e.g. a how to, etc.). A basic recipe model with a few properties [`title`, `description`, `ingredients`, `instructions`] etc.
 - Project (a project entity, for example, a project in development.)
 - Bug (Bugs related to a project in Project entity.)
-- Sample (this is just a test entity. Can be renamed to note for the Bug entity.)
+- Sample (this is just a test entity. Can be renamed to be used as notes for the Bug entity.), this only exists to make test CRUD operations to check everything is working.
 
-- Sample entity only exists to make test CRUD operations to check everything is working.
-
-- Recipe entity is basic recipe model with a few properties [`title`, `description`, `ingredients`, `instructions`] etc.
-
-Both Typeorm and Graphql have been configured and set up in app.module.ts file. Further config is done in each module as needed.
+Both Typeorm and Graphql have been configured and set up in app.module.ts file. Further config is done in each module as needed. Graphql uses code-first approach and is configured to output a schema file `schema.graphql` in the `src` directory.
 
 ## TODOs
 
