@@ -12,7 +12,11 @@ import { RecipeService } from './recipe.service';
 import { CreateRecipeInput } from './dto/create-recipe.input';
 import { UpdateRecipeInput } from './dto/update-recipe.input';
 import { RecipeDto } from './dto/recipe.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth.guard';
+import { IsPublic } from 'src/is-public.decorator';
 
+@UseGuards(AuthGuard)
 @Resolver(() => RecipeDto)
 export class RecipeResolver {
   constructor(private readonly recipeService: RecipeService) {}
@@ -26,15 +30,7 @@ export class RecipeResolver {
   // ingredients(@Parent() recipe: Recipe) {
   //   return recipe.ingredients?.split('|');
   // }
-
-  @Mutation(() => RecipeDto)
-  createRecipe(
-    @Args('createRecipeInput') createRecipeInput: CreateRecipeInput,
-  ) {
-    console.log(createRecipeInput);
-    return this.recipeService.create(createRecipeInput);
-  }
-
+  @IsPublic()
   @Query(() => [RecipeDto], { name: 'recipes' })
   findAll(
     @Args('take', { type: () => Int, defaultValue: 10, nullable: true })
@@ -43,9 +39,18 @@ export class RecipeResolver {
     return this.recipeService.findAll(takeCount);
   }
 
+  @IsPublic()
   @Query(() => RecipeDto, { name: 'recipe', nullable: true })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.recipeService.getById(id);
+  }
+
+  @Mutation(() => RecipeDto)
+  createRecipe(
+    @Args('createRecipeInput') createRecipeInput: CreateRecipeInput,
+  ) {
+    console.log(createRecipeInput);
+    return this.recipeService.create(createRecipeInput);
   }
 
   @Mutation(() => RecipeDto, { nullable: true })
