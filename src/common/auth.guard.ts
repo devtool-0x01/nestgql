@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
     // TODO: Add logged in user vaidation
 
     console.log(`${message} denying access ...`);
-    throw new UnauthorizedException();
+    // throw new UnauthorizedException();
     return false;
   }
 }

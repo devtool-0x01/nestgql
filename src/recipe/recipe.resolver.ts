@@ -7,14 +7,15 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import { RecipeService } from './recipe.service';
 // import { Recipe } from './entities/recipe.entity';
 import { CreateRecipeInput } from './dto/create-recipe.input';
 import { UpdateRecipeInput } from './dto/update-recipe.input';
 import { RecipeDto } from './dto/recipe.dto';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/auth.guard';
-import { IsPublic } from 'src/is-public.decorator';
+import { AuthGuard } from '../common/auth.guard';
+import { IsPublic } from '../common/is-public.decorator';
 
 @UseGuards(AuthGuard)
 @Resolver(() => RecipeDto)

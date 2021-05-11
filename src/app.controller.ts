@@ -5,8 +5,13 @@ import {
   Get,
   NotImplementedException,
   Post,
+  Req,
   Session,
+  UseGuards,
 } from '@nestjs/common';
+import { ThrottlerGuard } from '@nestjs/throttler';
+import { Request as ExpressRequest } from 'express';
+import { Session as ExpressSession } from 'express-session';
 import { AppService } from './app.service';
 
 @Controller()
@@ -14,8 +19,13 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @UseGuards(ThrottlerGuard)
+  getHello(@Session() session: Record<string, any>): string {
+    session.visits = session.visits ? session.visits + 1 : 1;
+    // req.session.visits = req.session.visits ? req.session.visits + 1 : 1;
+    return `${this.appService.getHello()} - ${session.id} ${JSON.stringify(
+      session,
+    )}`;
   }
 
   @Post('login')

@@ -7,8 +7,8 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/auth.guard';
-import { AllowAnonymous, IsPublic } from 'src/is-public.decorator';
+import { AuthGuard } from '../common/auth.guard';
+import { AllowAnonymous, IsPublic } from '../common/is-public.decorator';
 import { RecipeService } from './recipe.service';
 
 @UseGuards(AuthGuard)
